@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>G-PoP — Global Pop Culture Platform</title>
+  <meta name="description" content="Your warm, curated gateway to global pop culture — Music, Art, Home, Film & Books." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --warm-cream: #FDFAF5; --warm-sand: #F5EFE0; --warm-stone: #8C7B6B;
+      --warm-ink: #2C2417; --warm-gold: #C9973A;
+      --radius: 18px; --shadow: 0 4px 24px rgba(44,36,23,0.10);
+      --shadow-lg: 0 12px 48px rgba(44,36,23,0.15);
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--warm-cream); color: var(--warm-ink); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    .app { min-height: 100vh; }
+
+    /* HOME */
+    .home-page { max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
+    .home-header { text-align: center; margin-bottom: 56px; }
+    .logo-area { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 20px; }
+    .logo-badge { width: 64px; height: 64px; background: linear-gradient(135deg, #C9973A, #C1440E); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: white; box-shadow: 0 8px 24px rgba(193,68,14,0.30); animation: badgePop 0.6s cubic-bezier(0.34,1.56,0.64,1) both; }
+    @keyframes badgePop { from { transform: scale(0.7) rotate(-8deg); opacity:0; } to { transform: scale(1) rotate(0); opacity:1; } }
+    .logo-text { font-family: var(--font-display); font-size: 3.2rem; font-weight: 700; color: var(--warm-ink); line-height: 1; letter-spacing: -1px; }
+    .logo-sub { font-size: 0.85rem; font-weight: 400; color: var(--warm-stone); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px; }
+    .home-intro { font-size: 1.1rem; font-weight: 300; color: var(--warm-stone); max-width: 480px; margin: 0 auto; line-height: 1.65; }
+    .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .channel-card { background: white; border: 2px solid transparent; border-radius: var(--radius); padding: 28px 24px; cursor: pointer; display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow); transition: var(--transition); text-align: left; opacity: 0; animation: slideUp 0.5s ease both; position: relative; overflow: hidden; }
+    .channel-card::before { content:''; position:absolute; inset:0; background:var(--ch-bg); opacity:0; transition:opacity 0.3s; }
+    .channel-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--ch-accent); }
+    .channel-card:hover::before { opacity: 1; }
+    .channel-card:hover .ch-card-arrow { transform: translateX(4px); color: var(--ch-color); }
+    @keyframes slideUp { from { transform: translateY(20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+    .ch-card-icon { font-size: 2.8rem; line-height: 1; position: relative; z-index: 1; flex-shrink: 0; }
+    .ch-card-content { flex: 1; position: relative; z-index: 1; }
+    .ch-card-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; color: var(--warm-ink); margin-bottom: 4px; }
+    .ch-card-tagline { font-size: 0.82rem; font-weight: 300; color: var(--warm-stone); line-height: 1.4; }
+    .ch-card-arrow { font-size: 1.2rem; color: #ccc; transition: var(--transition); position: relative; z-index: 1; flex-shrink: 0; }
+    .home-footer { text-align: center; margin-top: 64px; font-size: 0.8rem; color: #bbb; font-weight: 300; }
+
+    /* CHANNEL VIEW */
+    .channel-view { max-width: 1000px; margin: 0 auto; padding: 32px 24px 80px; }
+    .channel-header { margin-bottom: 32px; }
+    .back-btn { background:none; border:none; font-family:var(--font-body); font-size:0.9rem; color:var(--warm-stone); cursor:pointer; padding:0; margin-bottom:16px; display:inline-block; transition:color 0.2s; }
+    .back-btn:hover { color: var(--ch-color); }
+    .channel-title-area { display: flex; align-items: center; gap: 16px; }
+    .ch-emoji { font-size: 3rem; }
+    .ch-name { font-family: var(--font-display); font-size: 2.8rem; font-weight: 700; color: var(--ch-color); line-height: 1; }
+    .ch-tagline { font-size: 0.9rem; font-weight: 300; color: var(--warm-stone); margin-top: 4px; font-style: italic; }
+
+    /* TASTE DNA */
+    .taste-dna { background: linear-gradient(135deg, #C1440E08, #C9973A12); border: 2px solid #C1440E22; border-radius: 24px; padding: 32px; margin-bottom: 36px; }
+    .taste-dna-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .taste-dna-icon { font-size: 2rem; }
+    .taste-dna-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--warm-ink); }
+    .taste-dna-subtitle { font-size: 0.9rem; font-weight: 300; color: var(--warm-stone); margin-bottom: 24px; line-height: 1.5; }
+    .artist-inputs { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 10px; margin-bottom: 20px; }
+    .artist-input-wrap { position: relative; }
+    .artist-num { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; font-weight: 600; color: #C1440E; font-family: var(--font-display); pointer-events:none; }
+    .artist-input { width: 100%; padding: 12px 12px 12px 32px; border: 2px solid var(--warm-sand); border-radius: 12px; font-family: var(--font-body); font-size: 0.9rem; background: white; color: var(--warm-ink); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .artist-input:focus { border-color: #C1440E; box-shadow: 0 0 0 3px #C1440E18; }
+    .artist-input::placeholder { color: #ccc; }
+    .generate-btn { width: 100%; padding: 14px 24px; background: linear-gradient(135deg, #C1440E, #C9973A); border: none; border-radius: 14px; color: white; font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 16px rgba(193,68,14,0.30); }
+    .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(193,68,14,0.40); }
+    .generate-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* TASTE PROFILE */
+    .taste-profile { background: white; border-radius: 16px; padding: 16px 20px; border: 2px solid #C1440E22; margin-bottom: 28px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .taste-profile-label { font-size: 0.8rem; font-weight: 500; color: var(--warm-stone); text-transform: uppercase; letter-spacing: 0.08em; white-space:nowrap; }
+    .taste-artists { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+    .taste-artist-chip { padding: 4px 12px; background: linear-gradient(135deg, #C1440E15, #C9973A15); border: 1.5px solid #C1440E30; border-radius: 100px; font-size: 0.8rem; font-weight: 500; color: #C1440E; }
+    .reset-btn { background: none; border: 1.5px solid var(--warm-sand); border-radius: 8px; padding: 5px 12px; font-family: var(--font-body); font-size: 0.78rem; color: var(--warm-stone); cursor: pointer; transition: var(--transition); white-space:nowrap; }
+    .reset-btn:hover { border-color: #C1440E; color: #C1440E; }
+
+    /* DNA LOADING */
+    .dna-loading { text-align: center; padding: 48px 24px; background: white; border-radius: 20px; border: 2px solid var(--warm-sand); margin-bottom: 32px; }
+    .dna-loading-spinner { width: 48px; height: 48px; margin: 0 auto 16px; border: 3px solid var(--warm-sand); border-top-color: #C1440E; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .dna-loading-text { font-family: var(--font-display); font-size: 1.1rem; color: var(--warm-stone); font-style: italic; }
+
+    /* REC SECTIONS */
+    .recs-section { margin-bottom: 40px; }
+    .recs-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--warm-sand); }
+    .recs-section-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--warm-ink); }
+    .recs-section-icon { font-size: 1.4rem; }
+    .rec-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .rec-card { background: white; border: 2px solid var(--warm-sand); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); transition: var(--transition); opacity: 0; animation: slideUp 0.45s ease both; }
+    .rec-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: #C1440E44; }
+    .rec-card-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--warm-ink); line-height: 1.3; margin-bottom: 4px; }
+    .rec-card-meta { font-size: 0.78rem; color: var(--warm-stone); margin-bottom: 8px; }
+    .rec-card-why { font-size: 0.82rem; font-weight: 300; color: var(--warm-stone); line-height: 1.5; margin-bottom: 14px; font-style: italic; }
+
+    /* STREAMING LINKS */
+    .stream-links { display: flex; flex-wrap: wrap; gap: 5px; }
+    .stream-link { display: inline-flex; align-items: center; gap: 4px; padding: 4px 9px; border-radius: 7px; text-decoration: none; font-size: 0.7rem; font-weight: 500; transition: var(--transition); border: 1.5px solid; }
+    .stream-link:hover { transform: translateY(-1px); }
+    .stream-spotify  { color:#1DB954; border-color:#1DB95440; background:#1DB95410; }
+    .stream-apple    { color:#FA243C; border-color:#FA243C40; background:#FA243C10; }
+    .stream-youtube  { color:#FF0000; border-color:#FF000040; background:#FF000010; }
+    .stream-amazon   { color:#00A8E1; border-color:#00A8E140; background:#00A8E110; }
+    .stream-tidal    { color:#1a1a1a; border-color:#1a1a1a30; background:#1a1a1a08; }
+    .stream-deezer   { color:#A238FF; border-color:#A238FF40; background:#A238FF10; }
+    .stream-soundcloud { color:#FF5500; border-color:#FF550040; background:#FF550010; }
+    .stream-pandora  { color:#3668FF; border-color:#3668FF40; background:#3668FF10; }
+
+    /* SEARCH */
+    .search-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+    .search-bar input { flex: 1; padding: 12px 18px; border: 2px solid var(--warm-sand); border-radius: 12px; font-family: var(--font-body); font-size: 0.95rem; background: white; color: var(--warm-ink); transition: border-color 0.2s; outline: none; }
+    .search-bar input:focus { border-color: var(--ch-accent); }
+    .search-bar input::placeholder { color: #bbb; }
+    .search-bar button { padding: 12px 24px; border: none; border-radius: 12px; color: white; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: var(--transition); }
+    .search-bar button:hover { opacity:0.85; transform:translateY(-1px); }
+    .filter-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .filter-tab { padding: 8px 18px; border: 2px solid var(--warm-sand); border-radius: 100px; background: white; font-family: var(--font-body); font-size: 0.85rem; font-weight: 500; cursor: pointer; color: var(--warm-stone); transition: var(--transition); }
+    .filter-tab:hover { border-color: var(--ch-accent); color: var(--ch-color); }
+    .filter-tab.active { border-color: transparent; }
+
+    /* FLIP CARDS */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .card { height: 300px; perspective: 1200px; cursor: pointer; opacity: 0; animation: slideUp 0.45s ease both; }
+    .card-inner { width:100%; height:100%; position:relative; transform-style:preserve-3d; transition:transform 0.55s cubic-bezier(0.4,0,0.2,1); }
+    .card.flipped .card-inner { transform: rotateY(180deg); }
+    .card-front, .card-back { position:absolute; inset:0; border-radius:var(--radius); backface-visibility:hidden; -webkit-backface-visibility:hidden; padding:22px; box-shadow:var(--shadow); }
+    .card-front { background:white; border:2px solid var(--warm-sand); display:flex; flex-direction:column; transition:box-shadow 0.2s, border-color 0.2s; }
+    .card:hover .card-front { box-shadow:var(--shadow-lg); border-color:var(--ch-accent,#ddd); }
+    .card-back { transform:rotateY(180deg); display:flex; flex-direction:column; justify-content:center; gap:16px; }
+    .card-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+    .card-icon { font-size:1.8rem; }
+    .save-btn { background:none; border:none; font-size:1.3rem; cursor:pointer; color:#ddd; transition:color 0.2s,transform 0.2s; padding:0; line-height:1; }
+    .save-btn:hover { transform:scale(1.2); color:#E86D8A; }
+    .save-btn.saved { color:#E86D8A; }
+    .card-title { font-family:var(--font-display); font-size:1.15rem; font-weight:600; color:var(--warm-ink); line-height:1.25; margin-bottom:4px; }
+    .card-subtitle { font-size:0.78rem; color:var(--warm-stone); margin-bottom:12px; }
+    .card-tags { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:auto; }
+    .tag { font-size:0.72rem; font-weight:500; padding:3px 9px; border-radius:100px; border:1px solid; }
+    .card-footer { display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:10px; border-top:1px solid var(--warm-sand); }
+    .mood { font-size:0.78rem; color:var(--warm-stone); }
+    .stars { display:flex; align-items:center; gap:1px; }
+    .star { font-size:0.8rem; }
+    .star.full { color:#C9973A; }
+    .star.half { color:#C9973A; opacity:0.6; }
+    .star.empty { color:#ddd; }
+    .rating-num { font-size:0.75rem; font-weight:500; color:var(--warm-stone); margin-left:4px; }
+    .flip-hint { font-size:0.7rem; color:#ccc; text-align:right; margin-top:6px; }
+    .flip-hint.light { color:rgba(255,255,255,0.6); }
+    .back-description { font-size:0.9rem; font-weight:300; color:white; line-height:1.6; }
+    .back-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .back-tag { font-size:0.72rem; font-weight:500; padding:3px 10px; border-radius:100px; background:rgba(255,255,255,0.25); color:white; }
+
+    .loading-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px; }
+    .skeleton-card { height:300px; border-radius:var(--radius); background:linear-gradient(90deg,var(--warm-sand) 25%,#ede8dc 50%,var(--warm-sand) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--warm-ink); color:white; padding:10px 20px; border-radius:100px; font-size:0.85rem; box-shadow:var(--shadow-lg); transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1); z-index:1000; }
+    .toast.show { transform:translateX(-50%) translateY(0); }
+
+    @media(max-width:600px){
+      .home-page{padding:32px 16px 64px}
+      .logo-text{font-size:2.4rem}
+      .channels-grid{grid-template-columns:1fr}
+      .ch-name{font-size:2rem}
+      .cards-grid,.rec-cards{grid-template-columns:1fr}
+      .channel-view{padding:24px 16px 64px}
+      .artist-inputs{grid-template-columns:1fr 1fr}
+      .taste-dna{padding:20px}
+    }
+  </style>
+</head>
+<body>
+<div id="app"></div>
+<script type="module">
+
+const CHANNELS = [
+  {id:'music',label:'Music',emoji:'🎵',color:'#C1440E',bg:'#FFF5EE',accent:'#F4874B',tagline:'Sounds from every corner of the world'},
+  {id:'art',  label:'Art',  emoji:'🎨',color:'#1A6B4A',bg:'#F0F9F4',accent:'#4CAF82',tagline:'Visual culture that moves you'},
+  {id:'home', label:'Home', emoji:'🏡',color:'#7B4F9E',bg:'#F8F0FF',accent:'#B07FD4',tagline:'Spaces that feel like you'},
+  {id:'film', label:'Film', emoji:'🎬',color:'#C13A5C',bg:'#FFF0F4',accent:'#E86D8A',tagline:'Cinema worth losing yourself in'},
+  {id:'books',label:'Books',emoji:'📚',color:'#7A5C1E',bg:'#FFFAF0',accent:'#C9973A',tagline:'Stories that stay with you'},
+];
+
+const STREAMING = [
+  {name:'Spotify',    icon:'♫',cls:'stream-spotify',    url:q=>`https://open.spotify.com/search/${encodeURIComponent(q)}`},
+  {name:'Apple Music',icon:'♪',cls:'stream-apple',      url:q=>`https://music.apple.com/search?term=${encodeURIComponent(q)}`},
+  {name:'YouTube',    icon:'▶',cls:'stream-youtube',    url:q=>`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`},
+  {name:'Amazon',     icon:'♬',cls:'stream-amazon',     url:q=>`https://music.amazon.com/search/${encodeURIComponent(q)}`},
+  {name:'Tidal',      icon:'〜',cls:'stream-tidal',      url:q=>`https://tidal.com/search?q=${encodeURIComponent(q)}`},
+  {name:'Deezer',     icon:'◈',cls:'stream-deezer',     url:q=>`https://www.deezer.com/search/${encodeURIComponent(q)}`},
+  {name:'SoundCloud', icon:'☁',cls:'stream-soundcloud', url:q=>`https://soundcloud.com/search?q=${encodeURIComponent(q)}`},
+  {name:'Pandora',    icon:'✦',cls:'stream-pandora',    url:q=>`https://www.pandora.com/search/${encodeURIComponent(q)}/all`},
+];
+
+const MOCK = {
+  music:[
+    {id:'1',title:'Afrobeats Rising',subtitle:'Various Artists · 2024',description:'A vibrant collection celebrating the global explosion of Afrobeats, from Lagos to London.',tags:['Afrobeats','Global','Dance'],mood:'🔥 Energetic',rating:4.8},
+    {id:'2',title:'Quiet Storm Vol. 3',subtitle:'Neo-Soul Collective',description:'Late-night soul for contemplative evenings. Velvet voices over jazz-inflected production.',tags:['Neo-Soul','Jazz','Chill'],mood:'🌙 Dreamy',rating:4.6},
+    {id:'3',title:'Flamenco Nuevo',subtitle:'Esperanza Ruiz · Live',description:'Flamenco reimagined with electronic textures and experimental guitar work.',tags:['Flamenco','Electronic','World'],mood:'💃 Passionate',rating:4.7},
+    {id:'4',title:'Bedroom Pop Diaries',subtitle:'Indie Collective 2024',description:'Intimate lo-fi recordings from bedroom producers around the world.',tags:['Indie','Lo-fi','Pop'],mood:'☁️ Cozy',rating:4.5},
+    {id:'5',title:'Jazz in Kyoto',subtitle:'Hiroshi Tanaka Trio',description:'Modal jazz inspired by traditional Japanese music and modern minimalism.',tags:['Jazz','Japanese','Ambient'],mood:'🍵 Meditative',rating:4.9},
+    {id:'6',title:'Cumbia del Futuro',subtitle:'Electro-Cumbia All Stars',description:'Colombian cumbia meets hypnotic electronics for the dancefloor of tomorrow.',tags:['Cumbia','Electronic','Latin'],mood:'🎉 Festive',rating:4.7},
+  ],
+  art:[
+    {id:'1',title:'Digital Brushstrokes',subtitle:'Mia Chen · Digital Art',description:'Where traditional ink-wash painting meets generative algorithms. A stunning fusion.',tags:['Digital','Chinese Art','Generative'],mood:'✨ Ethereal',rating:4.8},
+    {id:'2',title:'Street Canvas',subtitle:'Urban Muralists 2024',description:'Massive outdoor murals transforming city walls into open-air galleries worldwide.',tags:['Street Art','Mural','Urban'],mood:'🎨 Bold',rating:4.7},
+    {id:'3',title:'Fiber & Form',subtitle:'West African Textiles',description:'Kente and Kuba cloth patterns reimagined as contemporary fine art installations.',tags:['Textile','African Art','Installation'],mood:'🌺 Vibrant',rating:4.9},
+    {id:'4',title:'Minimal Sculptures',subtitle:'Nordic Art Fair',description:'Clean Scandinavian forms in stone and steel that breathe in open space.',tags:['Sculpture','Nordic','Minimal'],mood:'🧊 Serene',rating:4.6},
+    {id:'5',title:'Botanical Surrealism',subtitle:'Elena Vasquez',description:'Lush oil paintings where flowers grow into impossible architectures.',tags:['Oil Paint','Surrealism','Botanical'],mood:'🌿 Lush',rating:4.8},
+    {id:'6',title:'Photography of Silence',subtitle:'Kenji Mori · Japan',description:'Empty spaces and long exposures that make absence feel profound.',tags:['Photography','Minimalism','Zen'],mood:'🤫 Quiet',rating:4.7},
+  ],
+  home:[
+    {id:'1',title:'Wabi-Sabi Living',subtitle:'Japanese Interiors',description:'Embrace imperfection with cracked ceramics, worn linen, and intentional simplicity.',tags:['Japanese','Minimalism','Zen'],mood:'🍂 Grounded',rating:4.9},
+    {id:'2',title:'Maximalist Joy',subtitle:'Color & Pattern Studio',description:'Layer bold prints, eclectic art, and unexpected color pairings for pure delight.',tags:['Maximalism','Color','Eclectic'],mood:'🌈 Joyful',rating:4.7},
+    {id:'3',title:'The Green Room',subtitle:'Biophilic Design Guide',description:'Bring the outside in with living walls, cascading plants, and natural materials.',tags:['Biophilic','Plants','Natural'],mood:'🌱 Fresh',rating:4.8},
+    {id:'4',title:'Moroccan Sanctuary',subtitle:'Global Style Series',description:'Lanterns, zellige tile, and rich textiles create an atmosphere of warm mystery.',tags:['Moroccan','Global','Cozy'],mood:'🕌 Exotic',rating:4.8},
+    {id:'5',title:'Tiny Home Big Life',subtitle:'Small Space Mastery',description:'Make every square foot count with clever storage, light, and multifunctional design.',tags:['Small Space','Clever','Modern'],mood:'📦 Smart',rating:4.6},
+    {id:'6',title:'Grandmillennial',subtitle:'Modern Heritage Rooms',description:'Chintz, rattan, and heirloom pieces styled fresh for a new generation.',tags:['Vintage','Heritage','Cozy'],mood:'🫖 Nostalgic',rating:4.7},
+  ],
+  film:[
+    {id:'1',title:'Past Lives',subtitle:'Celine Song · 2023',description:'A transcendent meditation on love, loss, and the paths not taken.',tags:['Drama','Romance','Korean-American'],mood:'💔 Tender',rating:4.9},
+    {id:'2',title:'The Zone of Interest',subtitle:'Jonathan Glazer · 2023',description:'Haunting and formally radical. Evil portrayed through domestic banality.',tags:['Drama','Historical','Arthouse'],mood:'😶 Unsettling',rating:4.8},
+    {id:'3',title:'Anatomy of a Fall',subtitle:'Justine Triet · 2023',description:'A legal thriller that unravels a marriage, truth, and storytelling itself.',tags:['Thriller','French','Legal'],mood:'🔍 Gripping',rating:4.7},
+    {id:'4',title:'Spider-Man: Across the Spider-Verse',subtitle:'Sony · 2023',description:'The most visually inventive animated film ever made, period.',tags:['Animation','Action','Superhero'],mood:'🕷️ Thrilling',rating:4.9},
+    {id:'5',title:'Saltburn',subtitle:'Emerald Fennell · 2023',description:"Seductive, twisted, and wickedly funny. A provocateur's grand estate thriller.",tags:['Thriller','Dark Comedy','British'],mood:'🐍 Sinister',rating:4.6},
+    {id:'6',title:'Monster',subtitle:'Hirokazu Kore-eda · 2023',description:'Three perspectives on one incident. A Rashomon for our times.',tags:['Drama','Japanese','Mystery'],mood:'🌸 Profound',rating:4.8},
+  ],
+  books:[
+    {id:'1',title:'Intermezzo',subtitle:'Sally Rooney · 2024',description:'Two brothers, grief, love, and the messy business of being alive.',tags:['Literary Fiction','Family','Irish'],mood:'📖 Absorbing',rating:4.7},
+    {id:'2',title:'James',subtitle:'Percival Everett · 2024',description:"Huck Finn retold through Jim's eyes. Shattering, funny, necessary.",tags:['Historical Fiction','American','Award-Winning'],mood:'⚡ Powerful',rating:4.9},
+    {id:'3',title:'The God of the Woods',subtitle:'Liz Moore · 2024',description:'A girl disappears from a summer camp. Decades of family secrets unravel.',tags:['Mystery','Literary','Family Saga'],mood:'🌲 Atmospheric',rating:4.7},
+    {id:'4',title:'All Fours',subtitle:'Miranda July · 2024',description:"A woman's midlife detour becomes a radical reimagining of selfhood.",tags:['Literary Fiction','Feminist','Bold'],mood:'🦋 Transformative',rating:4.6},
+    {id:'5',title:'The Women',subtitle:'Kristin Hannah · 2024',description:"Female Vietnam nurses finally get their story told. Epic and devastating.",tags:['Historical Fiction','War',"Women's Stories"],mood:'🎖️ Heroic',rating:4.8},
+    {id:'6',title:'Orbital',subtitle:'Samantha Harvey · 2023',description:'A day aboard the ISS becomes a meditation on Earth and humanity.',tags:['Literary Fiction','Space','Philosophical'],mood:'🌍 Expansive',rating:4.8},
+  ],
+};
+
+const MOCK_DNA = {
+  artists:[
+    {name:'Janelle Monáe',meta:'Afrofuturist R&B · Atlanta',why:'Genre-blending fearlessness that matches your eclectic taste',searchQuery:'Janelle Monáe'},
+    {name:'Blood Orange',meta:'Dev Hynes · Art R&B',why:'Cinematic and emotionally layered — made for curious ears',searchQuery:'Blood Orange Dev Hynes'},
+    {name:'Hiatus Kaiyote',meta:'Future Soul · Melbourne',why:'Intricate grooves and lush arrangements your taste demands',searchQuery:'Hiatus Kaiyote'},
+    {name:'Bon Iver',meta:'Indie Folk · Wisconsin',why:'Textural and deeply felt — a natural sonic evolution',searchQuery:'Bon Iver'},
+  ],
+  songs:[
+    {name:'Make Me Feel',meta:'Janelle Monáe',why:'Prince-influenced funk meets modern R&B perfection',searchQuery:'Janelle Monáe Make Me Feel'},
+    {name:'Champagne Coast',meta:'Blood Orange',why:'Dreamy nostalgia that hits like a warm memory',searchQuery:'Blood Orange Champagne Coast'},
+    {name:'Breathing Underwater',meta:'Hiatus Kaiyote',why:'Complex rhythm and melody woven into something beautiful',searchQuery:'Hiatus Kaiyote Breathing Underwater'},
+    {name:'Holocene',meta:'Bon Iver',why:'Expansive and intimate all at once — genuinely unforgettable',searchQuery:'Bon Iver Holocene'},
+  ],
+  albums:[
+    {name:'Dirty Computer',meta:'Janelle Monáe · 2018',why:'A concept album that rewards every single relisten',searchQuery:'Janelle Monáe Dirty Computer album'},
+    {name:'Negro Swan',meta:'Blood Orange · 2018',why:'Deeply personal and musically adventurous throughout',searchQuery:'Blood Orange Negro Swan album'},
+    {name:'Choose Your Weapon',meta:'Hiatus Kaiyote · 2015',why:'The album that showed the world what future soul could be',searchQuery:'Hiatus Kaiyote Choose Your Weapon album'},
+    {name:'For Emma, Forever Ago',meta:'Bon Iver · 2007',why:'A landmark record that still sounds unlike anything else',searchQuery:'Bon Iver For Emma Forever Ago album'},
+  ],
+  vibes:[
+    {name:'Late Night Introspection',meta:'A playlist vibe',why:'For when you want to feel something real at 1am',searchQuery:'late night introspective indie soul playlist'},
+    {name:'Sunday Morning Jazz-Soul',meta:'A playlist vibe',why:'Warm, unhurried, and full of feeling',searchQuery:'sunday morning jazz soul neo soul playlist'},
+    {name:'Genre-Defying Brilliance',meta:'A playlist vibe',why:'Artists who refuse to be boxed in — just like your favorites',searchQuery:'genre defying alternative R&B experimental playlist'},
+    {name:'Emotional Maximalism',meta:'A playlist vibe',why:'Big feelings, big sounds, big ideas',searchQuery:'emotional maximalist indie art pop playlist'},
+  ],
+};
+
+// STATE
+let S = {
+  view:'home', channel:null, items:[], loading:false, filter:'discover',
+  saved:new Set(), dnaArtists:['','','','',''], dnaRecs:null, dnaLoading:false,
+};
+
+// UTILS
+function el(tag, attrs={}, ...kids) {
+  const e = document.createElement(tag);
+  for(const[k,v] of Object.entries(attrs)){
+    if(k==='class') e.className=v;
+    else if(k==='style'){ if(typeof v==='string') e.style.cssText=v; else Object.assign(e.style,v); }
+    else if(k.startsWith('on')) e.addEventListener(k.slice(2).toLowerCase(),v);
+    else e.setAttribute(k,v);
+  }
+  for(const c of kids.flat()) if(c!=null) e.append(typeof c==='string'?document.createTextNode(c):c);
+  return e;
+}
+
+function stars(r) {
+  const f=Math.floor(r),h=(r%1)>=0.5;
+  return el('span',{class:'stars'},
+    ...[0,1,2,3,4].map(i=>el('span',{class:i<f?'star full':(i===f&&h?'star half':'star empty')},'★')),
+    el('span',{class:'rating-num'},r.toFixed(1))
+  );
+}
+
+function toast(msg) {
+  let t=document.getElementById('gpop-toast');
+  if(!t){t=el('div',{class:'toast',id:'gpop-toast'});document.body.append(t);}
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+function streamLinks(q) {
+  return el('div',{class:'stream-links'},
+    ...STREAMING.map(s=>el('a',{class:`stream-link ${s.cls}`,href:s.url(q),target:'_blank',rel:'noopener'},s.icon,' ',s.name))
+  );
+}
+
+// API
+async function apiCall(body) {
+  try {
+    const r=await fetch('/api/channel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(r.ok) return await r.json();
+  } catch{}
+  return null;
+}
+
+async function loadChannel(ch,action,query='') {
+  const d=await apiCall({channel:ch,action,query});
+  return d?.items || MOCK[ch] || [];
+}
+
+async function loadDNA(artists) {
+  const valid=artists.filter(a=>a.trim());
+  const d=await apiCall({channel:'music',action:'taste_dna',query:valid.join(', ')});
+  return d?.recommendations || MOCK_DNA;
+}
+
+// RENDER
+function render() {
+  const app=document.getElementById('app');
+  app.innerHTML='';
+  app.append(S.view==='home'?renderHome():renderChannelView());
+}
+
+function renderHome() {
+  return el('div',{class:'home-page'},
+    el('header',{class:'home-header'},
+      el('div',{class:'logo-area'},
+        el('div',{class:'logo-badge'},'G'),
+        el('div',{},el('h1',{class:'logo-text'},'G-PoP'),el('p',{class:'logo-sub'},'Global Pop Culture'))
+      ),
+      el('p',{class:'home-intro'},"Your warm, curated gateway to the world's best culture — music, art, home, film & books.")
+    ),
+    el('div',{class:'channels-grid'},
+      ...CHANNELS.map((ch,i)=>el('button',{
+        class:'channel-card',
+        style:{'--ch-color':ch.color,'--ch-bg':ch.bg,'--ch-accent':ch.accent,animationDelay:`${i*100}ms`},
+        onClick:()=>goChannel(ch),
+      },
+        el('div',{class:'ch-card-icon'},ch.emoji),
+        el('div',{class:'ch-card-content'},el('h2',{class:'ch-card-name'},ch.label),el('p',{class:'ch-card-tagline'},ch.tagline)),
+        el('span',{class:'ch-card-arrow'},'→')
+      ))
+    ),
+    el('footer',{class:'home-footer'},el('p',{},'Powered by G-PoP · AI-curated culture for curious minds'))
+  );
+}
+
+async function goChannel(ch) {
+  S={...S,view:'channel',channel:ch,items:[],loading:true,filter:'discover'};
+  render();
+  const items=await loadChannel(ch.id,'discover');
+  S={...S,items,loading:false};
+  render();
+}
+
+function renderChannelView() {
+  const ch=S.channel;
+  let inp;
+
+  const doSearch=async(e)=>{
+    if(e) e.preventDefault();
+    const q=(inp?.value||'').trim(); if(!q) return;
+    S={...S,loading:true,filter:'search'}; render();
+    S={...S,items:await loadChannel(ch.id,'search',q),loading:false}; render();
+  };
+
+  const doFilter=async(f)=>{
+    S={...S,loading:true,filter:f}; render();
+    S={...S,items:await loadChannel(ch.id,f),loading:false}; render();
+  };
+
+  return el('div',{class:'channel-view',style:{'--ch-color':ch.color,'--ch-bg':ch.bg,'--ch-accent':ch.accent}},
+    el('div',{class:'channel-header'},
+      el('button',{class:'back-btn',onClick:()=>{S={...S,view:'home'};render();}},'← All Channels'),
+      el('div',{class:'channel-title-area'},
+        el('span',{class:'ch-emoji'},ch.emoji),
+        el('div',{},el('h1',{class:'ch-name'},ch.label),el('p',{class:'ch-tagline'},ch.tagline))
+      )
+    ),
+
+    ch.id==='music' && !S.dnaRecs && !S.dnaLoading ? renderDNAForm() : null,
+    ch.id==='music' && S.dnaRecs && !S.dnaLoading ? renderTasteProfile() : null,
+    ch.id==='music' && S.dnaLoading ? renderDNALoading() : null,
+    ch.id==='music' && S.dnaRecs ? renderDNARecs() : null,
+
+    (()=>{
+      const bar=el('div',{class:'search-bar'});
+      inp=el('input',{type:'text',placeholder:`Search ${ch.label.toLowerCase()}...`});
+      inp.addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+      bar.append(inp,el('button',{style:{backgroundColor:ch.color},onClick:doSearch},'Search'));
+      return bar;
+    })(),
+
+    el('div',{class:'filter-tabs'},
+      ...['discover','trending'].map(f=>{
+        const a=S.filter===f;
+        return el('button',{
+          class:`filter-tab${a?' active':''}`,
+          style:a?{backgroundColor:ch.color,color:'#fff',borderColor:'transparent'}:{},
+          onClick:()=>doFilter(f)
+        },f==='discover'?'✦ Discover':'↑ Trending');
+      })
+    ),
+
+    S.loading
+      ? el('div',{class:'loading-grid'},...[0,1,2,3,4,5].map(()=>el('div',{class:'skeleton-card'})))
+      : el('div',{class:'cards-grid'},...S.items.map((item,i)=>renderCard(item,ch,i)))
+  );
+}
+
+function renderDNAForm() {
+  return el('div',{class:'taste-dna'},
+    el('div',{class:'taste-dna-header'},
+      el('span',{class:'taste-dna-icon'},'🧬'),
+      el('h2',{class:'taste-dna-title'},'Your Music Taste DNA')
+    ),
+    el('p',{class:'taste-dna-subtitle'},'Enter your top 5 favorite artists and our AI will map your musical DNA — then find you new artists, songs, albums, and vibes to love, with links to every streaming service.'),
+    el('div',{class:'artist-inputs'},
+      ...S.dnaArtists.map((val,i)=>{
+        const wrap=el('div',{class:'artist-input-wrap'});
+        const num=el('span',{class:'artist-num'},`${i+1}`);
+        const inp=el('input',{class:'artist-input',type:'text',placeholder:`Artist ${i+1}`});
+        inp.value=val;
+        inp.addEventListener('input',e=>{S.dnaArtists[i]=e.target.value;});
+        wrap.append(num,inp);
+        return wrap;
+      })
+    ),
+    el('button',{class:'generate-btn',onClick:async(e)=>{
+      const valid=S.dnaArtists.filter(a=>a.trim());
+      if(valid.length<3){toast('Please enter at least 3 artists ♪');return;}
+      e.currentTarget.disabled=true;
+      S={...S,dnaLoading:true}; render();
+      const recs=await loadDNA(S.dnaArtists);
+      S={...S,dnaRecs:recs,dnaLoading:false}; render();
+    }},'✦ Discover My Music DNA')
+  );
+}
+
+function renderTasteProfile() {
+  const valid=S.dnaArtists.filter(a=>a.trim());
+  return el('div',{class:'taste-profile'},
+    el('span',{class:'taste-profile-label'},'Your Taste'),
+    el('div',{class:'taste-artists'},...valid.map(a=>el('span',{class:'taste-artist-chip'},a))),
+    el('button',{class:'reset-btn',onClick:()=>{S={...S,dnaRecs:null,dnaArtists:['','','','','']};render();}},'↺ Start Over')
+  );
+}
+
+function renderDNALoading() {
+  const msgs=['Analyzing your musical DNA…','Mapping your sonic universe…','Finding your next obsession…','Tuning into your frequency…'];
+  return el('div',{class:'dna-loading'},
+    el('div',{class:'dna-loading-spinner'}),
+    el('p',{class:'dna-loading-text'},msgs[Math.floor(Math.random()*msgs.length)])
+  );
+}
+
+function renderDNARecs() {
+  if(!S.dnaRecs) return null;
+  const secs=[
+    {key:'artists',label:"Artists You'll Love",icon:'🎤'},
+    {key:'songs',  label:'Songs to Play Now',  icon:'🎵'},
+    {key:'albums', label:'Albums to Explore',  icon:'💿'},
+    {key:'vibes',  label:'Playlist Vibes',     icon:'🌊'},
+  ];
+  return el('div',{},
+    ...secs.map(sec=>{
+      const items=S.dnaRecs[sec.key];
+      if(!items?.length) return null;
+      return el('div',{class:'recs-section'},
+        el('div',{class:'recs-header'},el('span',{class:'recs-section-icon'},sec.icon),el('h3',{class:'recs-section-title'},sec.label)),
+        el('div',{class:'rec-cards'},
+          ...items.map((item,i)=>el('div',{class:'rec-card',style:{animationDelay:`${i*80}ms`}},
+            el('div',{class:'rec-card-title'},item.name),
+            el('p',{class:'rec-card-meta'},item.meta||''),
+            el('p',{class:'rec-card-why'},`"${item.why}"`),
+            streamLinks(item.searchQuery||item.name)
+          ))
+        )
+      );
+    }).filter(Boolean)
+  );
+}
+
+function renderCard(item,ch,idx) {
+  let flipped=false, saved=S.saved.has(item.id+ch.id);
+  const front=el('div',{class:'card-front'},
+    el('div',{class:'card-top'},
+      el('div',{class:'card-icon'},ch.emoji),
+      el('button',{class:`save-btn${saved?' saved':''}`,onClick:(e)=>{
+        e.stopPropagation(); saved=!saved;
+        if(saved) S.saved.add(item.id+ch.id); else S.saved.delete(item.id+ch.id);
+        e.currentTarget.textContent=saved?'♥':'♡';
+        e.currentTarget.className=`save-btn${saved?' saved':''}`;
+        toast(saved?'♥ Saved!':'Removed from saved');
+      }},saved?'♥':'♡')
+    ),
+    el('h3',{class:'card-title'},item.title),
+    el('p',{class:'card-subtitle'},item.subtitle),
+    el('div',{class:'card-tags'},...item.tags.map(t=>el('span',{class:'tag',style:{backgroundColor:ch.bg,color:ch.color,borderColor:ch.accent+'44'}},t))),
+    el('div',{class:'card-footer'},el('span',{class:'mood'},item.mood),stars(item.rating)),
+    el('p',{class:'flip-hint'},'tap for more →')
+  );
+  const back=el('div',{class:'card-back',style:{background:`linear-gradient(135deg,${ch.color}F0,${ch.color}CC)`}},
+    el('p',{class:'back-description'},item.description),
+    el('div',{class:'back-tags'},...item.tags.map(t=>el('span',{class:'back-tag'},t))),
+    el('p',{class:'flip-hint light'},'← tap to go back')
+  );
+  const card=el('div',{class:'card',style:{animationDelay:`${idx*80}ms`},
+    onClick:()=>{flipped=!flipped;card.classList.toggle('flipped',flipped);}
+  },el('div',{class:'card-inner'},front,back));
+  return card;
+}
+
+render();
+</script>
+</body>
+</html>
