@@ -55,8 +55,15 @@
     .ch-name { font-family: var(--font-display); font-size: 2.8rem; font-weight: 700; color: var(--ch-color); line-height: 1; }
     .ch-tagline { font-size: 0.9rem; font-weight: 300; color: var(--warm-stone); margin-top: 4px; font-style: italic; }
 
-    /* TASTE DNA */
-    .taste-dna { background: linear-gradient(135deg, #C1440E08, #C9973A12); border: 2px solid #C1440E22; border-radius: 24px; padding: 32px; margin-bottom: 36px; }
+    /* TASTE DNA — connected top piece */
+    .taste-dna {
+      background: linear-gradient(135deg, #C1440E08, #C9973A12);
+      border: 2px solid #C1440E22;
+      border-radius: 24px 24px 0 0;
+      border-bottom: none;
+      padding: 32px 32px 24px;
+      margin-bottom: 0;
+    }
     .taste-dna-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
     .taste-dna-icon { font-size: 2rem; }
     .taste-dna-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--warm-ink); }
@@ -70,6 +77,61 @@
     .generate-btn { width: 100%; padding: 14px 24px; background: linear-gradient(135deg, #C1440E, #C9973A); border: none; border-radius: 14px; color: white; font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 16px rgba(193,68,14,0.30); }
     .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(193,68,14,0.40); }
     .generate-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* STREAMING BAR — connected bottom piece */
+    .streaming-bar {
+      background: white;
+      border: 2px solid #C1440E22;
+      border-top: 2px dashed #C1440E18;
+      border-radius: 0 0 24px 24px;
+      padding: 18px 32px 22px;
+      margin-bottom: 32px;
+      box-shadow: 0 6px 20px rgba(44,36,23,0.07);
+    }
+    .streaming-bar-label {
+      font-size: 0.72rem; font-weight: 500; color: var(--warm-stone);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;
+    }
+    .service-icons { display: flex; gap: 8px; }
+    .svc-btn {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; flex: 1; height: 62px;
+      border-radius: 12px; border: 2px solid var(--warm-sand);
+      background: var(--warm-cream); cursor: pointer;
+      transition: var(--transition); padding: 6px 2px;
+    }
+    .svc-btn:hover { border-color: #C1440E44; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(44,36,23,0.10); }
+    .svc-icon { font-size: 1.2rem; line-height: 1; }
+    .svc-name { font-size: 0.56rem; font-weight: 500; color: var(--warm-stone); text-align: center; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; padding: 0 2px; }
+
+    /* Active states per service */
+    .svc-btn.svc-active { transform: translateY(-2px); }
+    .svc-btn.svc-active .svc-name { font-weight: 600; }
+    .svc-spotify.svc-active  { border-color: #1DB954; background: #1DB95412; box-shadow: 0 4px 12px rgba(29,185,84,0.20); }
+    .svc-spotify.svc-active .svc-name  { color: #1DB954; }
+    .svc-apple.svc-active    { border-color: #FA243C; background: #FA243C12; box-shadow: 0 4px 12px rgba(250,36,60,0.20); }
+    .svc-apple.svc-active .svc-name    { color: #FA243C; }
+    .svc-youtube.svc-active  { border-color: #FF0000; background: #FF000012; box-shadow: 0 4px 12px rgba(255,0,0,0.20); }
+    .svc-youtube.svc-active .svc-name  { color: #FF0000; }
+    .svc-amazon.svc-active   { border-color: #00A8E1; background: #00A8E112; box-shadow: 0 4px 12px rgba(0,168,225,0.20); }
+    .svc-amazon.svc-active .svc-name   { color: #00A8E1; }
+    .svc-tidal.svc-active    { border-color: #1a1a1a; background: #1a1a1a0e; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .svc-tidal.svc-active .svc-name    { color: #1a1a1a; }
+    .svc-deezer.svc-active   { border-color: #A238FF; background: #A238FF12; box-shadow: 0 4px 12px rgba(162,56,255,0.20); }
+    .svc-deezer.svc-active .svc-name   { color: #A238FF; }
+    .svc-sc.svc-active       { border-color: #FF5500; background: #FF550012; box-shadow: 0 4px 12px rgba(255,85,0,0.20); }
+    .svc-sc.svc-active .svc-name       { color: #FF5500; }
+    .svc-pandora.svc-active  { border-color: #3668FF; background: #3668FF12; box-shadow: 0 4px 12px rgba(54,104,255,0.20); }
+    .svc-pandora.svc-active .svc-name  { color: #3668FF; }
+
+    /* SELECTED INDICATOR */
+    .selected-indicator {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; color: var(--warm-stone);
+      margin-bottom: 20px; padding: 6px 14px;
+      background: var(--warm-sand); border-radius: 8px;
+    }
+    .selected-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
     /* TASTE PROFILE */
     .taste-profile { background: white; border-radius: 16px; padding: 16px 20px; border: 2px solid #C1440E22; margin-bottom: 28px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -97,18 +159,17 @@
     .rec-card-meta { font-size: 0.78rem; color: var(--warm-stone); margin-bottom: 8px; }
     .rec-card-why { font-size: 0.82rem; font-weight: 300; color: var(--warm-stone); line-height: 1.5; margin-bottom: 14px; font-style: italic; }
 
-    /* STREAMING LINKS */
-    .stream-links { display: flex; flex-wrap: wrap; gap: 5px; }
-    .stream-link { display: inline-flex; align-items: center; gap: 4px; padding: 4px 9px; border-radius: 7px; text-decoration: none; font-size: 0.7rem; font-weight: 500; transition: var(--transition); border: 1.5px solid; }
-    .stream-link:hover { transform: translateY(-1px); }
-    .stream-spotify  { color:#1DB954; border-color:#1DB95440; background:#1DB95410; }
-    .stream-apple    { color:#FA243C; border-color:#FA243C40; background:#FA243C10; }
-    .stream-youtube  { color:#FF0000; border-color:#FF000040; background:#FF000010; }
-    .stream-amazon   { color:#00A8E1; border-color:#00A8E140; background:#00A8E110; }
-    .stream-tidal    { color:#1a1a1a; border-color:#1a1a1a30; background:#1a1a1a08; }
-    .stream-deezer   { color:#A238FF; border-color:#A238FF40; background:#A238FF10; }
-    .stream-soundcloud { color:#FF5500; border-color:#FF550040; background:#FF550010; }
-    .stream-pandora  { color:#3668FF; border-color:#3668FF40; background:#3668FF10; }
+    /* OPEN BUTTON on rec cards */
+    .open-stream-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 10px; border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: 0.8rem; font-weight: 500;
+      color: white; transition: var(--transition);
+      background: #1DB954;
+      box-shadow: 0 2px 8px rgba(29,185,84,0.30);
+      text-decoration: none;
+    }
+    .open-stream-btn:hover { transform: translateY(-1px); opacity: 0.9; }
 
     /* SEARCH */
     .search-bar { display: flex; gap: 10px; margin-bottom: 20px; }
@@ -169,7 +230,10 @@
       .cards-grid,.rec-cards{grid-template-columns:1fr}
       .channel-view{padding:24px 16px 64px}
       .artist-inputs{grid-template-columns:1fr 1fr}
-      .taste-dna{padding:20px}
+      .taste-dna{padding:20px 20px 16px}
+      .streaming-bar{padding:14px 20px 18px}
+      .svc-name{display:none}
+      .svc-btn{height:48px}
     }
   </style>
 </head>
@@ -186,14 +250,14 @@ const CHANNELS = [
 ];
 
 const STREAMING = [
-  {name:'Spotify',    icon:'♫',cls:'stream-spotify',    url:q=>`https://open.spotify.com/search/${encodeURIComponent(q)}`},
-  {name:'Apple Music',icon:'♪',cls:'stream-apple',      url:q=>`https://music.apple.com/search?term=${encodeURIComponent(q)}`},
-  {name:'YouTube',    icon:'▶',cls:'stream-youtube',    url:q=>`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`},
-  {name:'Amazon',     icon:'♬',cls:'stream-amazon',     url:q=>`https://music.amazon.com/search/${encodeURIComponent(q)}`},
-  {name:'Tidal',      icon:'〜',cls:'stream-tidal',      url:q=>`https://tidal.com/search?q=${encodeURIComponent(q)}`},
-  {name:'Deezer',     icon:'◈',cls:'stream-deezer',     url:q=>`https://www.deezer.com/search/${encodeURIComponent(q)}`},
-  {name:'SoundCloud', icon:'☁',cls:'stream-soundcloud', url:q=>`https://soundcloud.com/search?q=${encodeURIComponent(q)}`},
-  {name:'Pandora',    icon:'✦',cls:'stream-pandora',    url:q=>`https://www.pandora.com/search/${encodeURIComponent(q)}/all`},
+  {id:'spotify',   name:'Spotify',     shortName:'Spotify',     icon:'♫', color:'#1DB954', cls:'svc-spotify',  url:q=>`https://open.spotify.com/search/${encodeURIComponent(q)}`},
+  {id:'apple',     name:'Apple Music', shortName:'Apple',       icon:'♪', color:'#FA243C', cls:'svc-apple',    url:q=>`https://music.apple.com/search?term=${encodeURIComponent(q)}`},
+  {id:'youtube',   name:'YouTube',     shortName:'YouTube',     icon:'▶', color:'#FF0000', cls:'svc-youtube',  url:q=>`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`},
+  {id:'amazon',    name:'Amazon Music',shortName:'Amazon',      icon:'♬', color:'#00A8E1', cls:'svc-amazon',   url:q=>`https://music.amazon.com/search/${encodeURIComponent(q)}`},
+  {id:'tidal',     name:'Tidal',       shortName:'Tidal',       icon:'〜', color:'#1a1a1a', cls:'svc-tidal',    url:q=>`https://tidal.com/search?q=${encodeURIComponent(q)}`},
+  {id:'deezer',    name:'Deezer',      shortName:'Deezer',      icon:'◈', color:'#A238FF', cls:'svc-deezer',   url:q=>`https://www.deezer.com/search/${encodeURIComponent(q)}`},
+  {id:'soundcloud',name:'SoundCloud',  shortName:'SoundCloud',  icon:'☁', color:'#FF5500', cls:'svc-sc',       url:q=>`https://soundcloud.com/search?q=${encodeURIComponent(q)}`},
+  {id:'pandora',   name:'Pandora',     shortName:'Pandora',     icon:'✦', color:'#3668FF', cls:'svc-pandora',  url:q=>`https://www.pandora.com/search/${encodeURIComponent(q)}/all`},
 ];
 
 const MOCK = {
@@ -253,15 +317,15 @@ const MOCK_DNA = {
     {name:'Holocene',meta:'Bon Iver',why:'Expansive and intimate all at once — genuinely unforgettable',searchQuery:'Bon Iver Holocene'},
   ],
   albums:[
-    {name:'Dirty Computer',meta:'Janelle Monáe · 2018',why:'A concept album that rewards every single relisten',searchQuery:'Janelle Monáe Dirty Computer album'},
-    {name:'Negro Swan',meta:'Blood Orange · 2018',why:'Deeply personal and musically adventurous throughout',searchQuery:'Blood Orange Negro Swan album'},
+    {name:'Dirty Computer',meta:'Janelle Monáe · 2018',why:'A concept album that rewards every relisten',searchQuery:'Janelle Monáe Dirty Computer album'},
+    {name:'Negro Swan',meta:'Blood Orange · 2018',why:'Deeply personal and musically adventurous',searchQuery:'Blood Orange Negro Swan album'},
     {name:'Choose Your Weapon',meta:'Hiatus Kaiyote · 2015',why:'The album that showed the world what future soul could be',searchQuery:'Hiatus Kaiyote Choose Your Weapon album'},
     {name:'For Emma, Forever Ago',meta:'Bon Iver · 2007',why:'A landmark record that still sounds unlike anything else',searchQuery:'Bon Iver For Emma Forever Ago album'},
   ],
   vibes:[
     {name:'Late Night Introspection',meta:'A playlist vibe',why:'For when you want to feel something real at 1am',searchQuery:'late night introspective indie soul playlist'},
     {name:'Sunday Morning Jazz-Soul',meta:'A playlist vibe',why:'Warm, unhurried, and full of feeling',searchQuery:'sunday morning jazz soul neo soul playlist'},
-    {name:'Genre-Defying Brilliance',meta:'A playlist vibe',why:'Artists who refuse to be boxed in — just like your favorites',searchQuery:'genre defying alternative R&B experimental playlist'},
+    {name:'Genre-Defying Brilliance',meta:'A playlist vibe',why:'Artists who refuse to be boxed in — like your favorites',searchQuery:'genre defying alternative R&B experimental playlist'},
     {name:'Emotional Maximalism',meta:'A playlist vibe',why:'Big feelings, big sounds, big ideas',searchQuery:'emotional maximalist indie art pop playlist'},
   ],
 };
@@ -269,7 +333,10 @@ const MOCK_DNA = {
 // STATE
 let S = {
   view:'home', channel:null, items:[], loading:false, filter:'discover',
-  saved:new Set(), dnaArtists:['','','','',''], dnaRecs:null, dnaLoading:false,
+  saved:new Set(),
+  dnaArtists:['','','','',''],
+  dnaRecs:null, dnaLoading:false,
+  selectedService: STREAMING[0], // default Spotify
 };
 
 // UTILS
@@ -300,10 +367,15 @@ function toast(msg) {
   setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-function streamLinks(q) {
-  return el('div',{class:'stream-links'},
-    ...STREAMING.map(s=>el('a',{class:`stream-link ${s.cls}`,href:s.url(q),target:'_blank',rel:'noopener'},s.icon,' ',s.name))
-  );
+function openStreamBtn(searchQuery) {
+  const svc = S.selectedService;
+  const btn = el('a', {
+    class:'open-stream-btn',
+    href: svc.url(searchQuery),
+    target:'_blank', rel:'noopener',
+    style:{background:svc.color, boxShadow:`0 2px 8px ${svc.color}44`}
+  }, `${svc.icon} Open in ${svc.name} →`);
+  return btn;
 }
 
 // API
@@ -369,8 +441,7 @@ function renderChannelView() {
   const ch=S.channel;
   let inp;
 
-  const doSearch=async(e)=>{
-    if(e) e.preventDefault();
+  const doSearch=async()=>{
     const q=(inp?.value||'').trim(); if(!q) return;
     S={...S,loading:true,filter:'search'}; render();
     S={...S,items:await loadChannel(ch.id,'search',q),loading:false}; render();
@@ -390,8 +461,15 @@ function renderChannelView() {
       )
     ),
 
+    // Music channel: DNA form + streaming bar as one connected unit
     ch.id==='music' && !S.dnaRecs && !S.dnaLoading ? renderDNAForm() : null,
+    ch.id==='music' && !S.dnaRecs && !S.dnaLoading ? renderStreamingBar() : null,
+
+    // After results: show taste profile + streaming bar + indicator
     ch.id==='music' && S.dnaRecs && !S.dnaLoading ? renderTasteProfile() : null,
+    ch.id==='music' && S.dnaRecs && !S.dnaLoading ? renderStreamingBar() : null,
+    ch.id==='music' && S.dnaRecs && !S.dnaLoading ? renderSelectedIndicator() : null,
+
     ch.id==='music' && S.dnaLoading ? renderDNALoading() : null,
     ch.id==='music' && S.dnaRecs ? renderDNARecs() : null,
 
@@ -426,7 +504,7 @@ function renderDNAForm() {
       el('span',{class:'taste-dna-icon'},'🧬'),
       el('h2',{class:'taste-dna-title'},'Your Music Taste DNA')
     ),
-    el('p',{class:'taste-dna-subtitle'},'Enter your top 5 favorite artists and our AI will map your musical DNA — then find you new artists, songs, albums, and vibes to love, with links to every streaming service.'),
+    el('p',{class:'taste-dna-subtitle'},'Enter your top 5 favorite artists and our AI will map your musical DNA — then find you new artists, songs, albums, and vibes to love.'),
     el('div',{class:'artist-inputs'},
       ...S.dnaArtists.map((val,i)=>{
         const wrap=el('div',{class:'artist-input-wrap'});
@@ -446,6 +524,38 @@ function renderDNAForm() {
       const recs=await loadDNA(S.dnaArtists);
       S={...S,dnaRecs:recs,dnaLoading:false}; render();
     }},'✦ Discover My Music DNA')
+  );
+}
+
+function renderStreamingBar() {
+  const bar = el('div',{class:'streaming-bar'},
+    el('div',{class:'streaming-bar-label'},'🎧 Where do you stream? Pick your service'),
+    el('div',{class:'service-icons'},
+      ...STREAMING.map(svc => {
+        const isActive = S.selectedService.id === svc.id;
+        const btn = el('div',{
+          class:`svc-btn ${svc.cls}${isActive?' svc-active':''}`,
+          onClick:()=>{
+            S={...S, selectedService:svc};
+            render();
+            toast(`${svc.icon} Switched to ${svc.name}`);
+          }
+        },
+          el('span',{class:'svc-icon'},svc.icon),
+          el('span',{class:'svc-name'},svc.shortName)
+        );
+        return btn;
+      })
+    )
+  );
+  return bar;
+}
+
+function renderSelectedIndicator() {
+  const svc = S.selectedService;
+  return el('div',{class:'selected-indicator'},
+    el('span',{class:'selected-dot',style:{background:svc.color}}),
+    `Opening results in ${svc.name}`
   );
 }
 
@@ -479,13 +589,16 @@ function renderDNARecs() {
       const items=S.dnaRecs[sec.key];
       if(!items?.length) return null;
       return el('div',{class:'recs-section'},
-        el('div',{class:'recs-header'},el('span',{class:'recs-section-icon'},sec.icon),el('h3',{class:'recs-section-title'},sec.label)),
+        el('div',{class:'recs-header'},
+          el('span',{class:'recs-section-icon'},sec.icon),
+          el('h3',{class:'recs-section-title'},sec.label)
+        ),
         el('div',{class:'rec-cards'},
           ...items.map((item,i)=>el('div',{class:'rec-card',style:{animationDelay:`${i*80}ms`}},
             el('div',{class:'rec-card-title'},item.name),
             el('p',{class:'rec-card-meta'},item.meta||''),
             el('p',{class:'rec-card-why'},`"${item.why}"`),
-            streamLinks(item.searchQuery||item.name)
+            openStreamBtn(item.searchQuery||item.name)
           ))
         )
       );
